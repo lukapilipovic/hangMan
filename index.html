@@ -2,6 +2,8 @@
 <head>
 	
 	<script type="text/javascript" src="js/Hangman.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	
 	
 
 
@@ -9,8 +11,23 @@
 <body>
 <script type="text/javascript">
 
-hangman = new Hangman("Testplayer",0);
+hangman = new Hangman("Testplayer",0,"tegetlab");
 hangman.loadGame();
+
+let b = document.getElementById('button');
+
+b.onclick = function(){
+
+ 		
+         
+         hangman.checkEntry(document.getElementById('inputField').value);
+       
+ };
+ 
+
+
+//hangman.checkEntry("e");
+//hangman.checkEntry("l");
 
 
 
