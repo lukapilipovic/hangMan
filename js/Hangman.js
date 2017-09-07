@@ -10,7 +10,7 @@ class Hangman {
         return 10;
     }
 
-    constructor(playerName,guess,numGuessed = 0,usedLetters = [],playerScore = 0){
+    constructor(playerName,guess="tegetlab",numGuessed = 0,usedLetters = [],playerScore = 0){
 
       
       this.playerName = playerName;
@@ -23,14 +23,38 @@ class Hangman {
 
     }
 
+
+    //first screen for player name
+    enterName(){
+    let fragment = document.createDocumentFragment();
+    let inputPlayerName = document.createElement("input");
+    inputPlayerName.id = "playerName";
+
+    inputPlayerName.addEventListener("keyup", function(event) {
+    //event.preventDefault();
+    if (event.keyCode == 13) {
+        console.log( this.playerName);
+        //this.playerName = inputPlayerName.value;
+        //console.log(inputPlayerName.value);
+        hangman.loadGame();
+    }});
+
+    fragment.appendChild(inputPlayerName);
     
+    //display login window
+    document.getElementById('container').appendChild(fragment);;
+
+
+    }
 
 
     //initialize game, vreate all elements
-    loadGame(gameContainer) { 
+    loadGame() { 
     
-    
-     var fragment = document.createDocumentFragment();
+     document.getElementById('container').removeChild(document.getElementById('playerName'));
+     
+     console.log ("test");
+     let fragment = document.createDocumentFragment();
 
      //create input field
      let inputField = document.createElement("input");
@@ -70,32 +94,22 @@ class Hangman {
     messageBox.id = "messageBox";
     fragment.appendChild(messageBox);
 
-    //display game window
-    gameContainer.appendChild(fragment);
+    
 
 
-    document.getElementById('inputField').addEventListener("keyup", function(event) {
-    //event.preventDefault();
+    inputField.addEventListener("keyup", function(event) {
     if (event.keyCode == 13) {
         hangman.checkEntry();
     }});
-    /*
-    document.getElementById('button').addEventListener("click", function(event) {
-    //event.preventDefault();
-    
-        hangman.checkEntry();
-    });
-    */
 
-     // ne radi iznutra...ZASTO??
-     
      
     button.onclick = function(){    
          hangman.checkEntry();
       };
 
 
-
+    //display game window
+    document.getElementById('container').appendChild(fragment);
 
     }	
 	

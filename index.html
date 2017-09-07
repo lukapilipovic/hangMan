@@ -15,10 +15,12 @@
 <script type="text/javascript">
 
 //create hangman and init game
-hangman = new Hangman("Testplayer","tegetlab");
+hangman = new Hangman();
 
-let container = document.getElementById('container');
-hangman.loadGame(container);
+
+hangman.enterName();
+
+
 
 
 
