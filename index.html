@@ -1,19 +1,17 @@
 <html>
 <head>
-	<script type="text/javascript" src="js/game.js"></script>
+	
+	<script type="text/javascript" src="js/Hangman.js"></script>
 	
 
 
-<script type="text/javascript">
-	console.log (document.getElementById("button"));
-
-	
-</script>
 </head>
 <body>
 <script type="text/javascript">
-document.body.onload = loadGame();
-//document.getElementById("button").checkEntry(inputField.value));
+
+hangman = new Hangman("Testplayer",0);
+hangman.loadGame();
+
 
 
 
