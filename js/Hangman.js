@@ -1,58 +1,58 @@
 class Hangman {
 
-    
-   static get BAR() {
+   //define rules 
+   static get MAX_GUESS_NUM() {
         return 7;
     }
 
-    constructor(playerName,negativeScore,guess){
 
-      this.MAX_GUESS_NUM = Hangman.BAR;
+   static get POINTSFORGUESS() {
+        return 10;
+    }
+
+    constructor(playerName,guess,numGuessed = 0,usedLetters = [],playerScore = 0){
+
+      
       this.playerName = playerName;
-      this.negativeScore = negativeScore; 
+      
       this.guess = guess;
-      this.numGuessed = 0;
+      this.numGuessed = numGuessed;
+      this.usedLetters = usedLetters;
+      this.playerScore = playerScore;
+      this.guessesLeft = Hangman.MAX_GUESS_NUM;
 
     }
 
     
 
 
-    
-    loadGame() { 
+    //initialize game, vreate all elements
+    loadGame(gameContainer) { 
     
     
      var fragment = document.createDocumentFragment();
 
-
+     //create input field
      let inputField = document.createElement("input");
      inputField.id = "inputField";
+     inputField.maxLength ="1";
+     inputField.size="1";
+     fragment.appendChild(inputField);
 
+     //create button
      let button = document.createElement("button");
      button.id = "button";
-
-     
-
-    
      button.innerHTML = "Try letter";
-
-     /* ne radi iznutra...ZASTO??
-     button.onclick = function(){
-         
-         checkEntry(inputField.value);
-      };
-    */
-      
+     fragment.appendChild(button);
 
 
-    document.body.appendChild(inputField);
-    document.body.appendChild(button);
     
 
+    //create result div
     let result = document.createElement("div");
     result.className = "result";
     
-
+    //create boxes for letters
     let counter  = 1;
      for (let letter of this.guess)  {
               
@@ -64,37 +64,109 @@ class Hangman {
               counter++;  
      }
 
-    document.body.appendChild(result);
+    fragment.appendChild(result);
+
+    let messageBox = document.createElement("div");
+    messageBox.id = "messageBox";
+    fragment.appendChild(messageBox);
+
+    //display game window
+    gameContainer.appendChild(fragment);
+
+
+    document.getElementById('inputField').addEventListener("keyup", function(event) {
+    //event.preventDefault();
+    if (event.keyCode == 13) {
+        hangman.checkEntry();
+    }});
+    /*
+    document.getElementById('button').addEventListener("click", function(event) {
+    //event.preventDefault();
+    
+        hangman.checkEntry();
+    });
+    */
+
+     // ne radi iznutra...ZASTO??
+     
+     
+    button.onclick = function(){    
+         hangman.checkEntry();
+      };
+
+
+
 
     }	
 	
 
-    checkEntry(char) {
-        let counter = 1;
-        if (this.guess.indexOf(char) > -1){
-            for (let letter of this.guess)  {
 
-                if (char == letter){
-               
-                document.getElementById('letter' + counter).innerHTML = letter;
-                this.numGuessed++
-                if (this.numGuessed == this.guess.length)
-                    {   
-                        console.log("You won");
-                    }
+    //onEvent 
+    checkEntry() {
+        let input = document.getElementById('inputField');
+        let button = document.getElementById('button');
+        let char = input.value;
+        let messageBox = document.getElementById('messageBox');
+        
+        //check if letter is used
+        let counter = 1;
+        if (!this.usedLetters.includes(char)){
+            
+            //check if letter is in the word
+            if (this.guess.indexOf(char) > -1) {
+                
+                //iterate theough the word 
+                for (let letter of this.guess)  {
+
+                    //if the player guessed display message and update score
+                    if (char == letter){
+                        this.playerScore += Hangman.POINTSFORGUESS;
+                        document.getElementById('letter' + counter).innerHTML = letter;
+                        this.numGuessed++
+                        messageBox.innerHTML = "Great! There is " + char + " in out word!";
+                        
+                        //check if is eng of game
+                        if (this.numGuessed == this.guess.length)
+                        {   
+                            messageBox.innerHTML = "You won";
+                            input.disabled = true;
+                            button.disabled = true;
+                        }
+                }
+                
+                //update iteration counter used for element lookup
+                counter++;
+                
+                }
+            }
+            else {
+                //check if player used all guesses
+                this.guessesLeft--;
+                
+                if (this.guessesLeft>0){
+                          messageBox.innerHTML = "You missed! Only " + this.guessesLeft + " tries left!";
+                }
+                else{
+                    messageBox.innerHTML = "You lost";
+                    input.disabled = true;
+                    button.disabled = true;
 
                 }
-
-
-                counter++;
             }
-        }
+
+            
+        } 
+
         else {
-                this.negativeScore++;
-                console.log("You missed! Only " + (this.MAX_GUESS_NUM-this.negativeScore) + " tries left!");
+            //if already used letter
+            messageBox.innerHTML = "Letter aready used!";
 
-            }
+        }
 
+
+        input.value = "";
+            input.focus();
+            this.usedLetters.push(char);
             console.log(hangman);
 
     }

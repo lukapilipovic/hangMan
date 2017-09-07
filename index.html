@@ -9,25 +9,16 @@
 
 </head>
 <body>
+<div id="container">
+
+
 <script type="text/javascript">
 
-hangman = new Hangman("Testplayer",0,"tegetlab");
-hangman.loadGame();
+//create hangman and init game
+hangman = new Hangman("Testplayer","tegetlab");
 
-let b = document.getElementById('button');
-
-b.onclick = function(){
-
- 		
-         
-         hangman.checkEntry(document.getElementById('inputField').value);
-       
- };
- 
-
-
-//hangman.checkEntry("e");
-//hangman.checkEntry("l");
+let container = document.getElementById('container');
+hangman.loadGame(container);
 
 
 
@@ -35,8 +26,6 @@ b.onclick = function(){
 </script>
 
 
-
-
-
+</div>
 </body>
 </html>
