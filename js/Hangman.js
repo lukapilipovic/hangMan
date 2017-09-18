@@ -35,12 +35,17 @@ class Hangman {
         let fragment = document.createDocumentFragment();
         let startWindow = document.createElement("div");
         startWindow.id = "startWindow";
-        let title = document.createTextNode("Enter player name");
+        let title = document.createElement("div");
+        title.className = "title";
+        title.innerHTML = "Enter your name";
+
+
 
         startWindow.appendChild(title);
 
         let inputPlayerName = document.createElement("input");
         inputPlayerName.id = "playerName";
+        inputPlayerName.className = "inputName";
 
         inputPlayerName.addEventListener("keyup", function (event) {
             //event.preventDefault();
@@ -123,12 +128,18 @@ class Hangman {
         let nDiv = document.createElement("div");
         nDiv.id = "adminPanel";
 
+        let title = document.createElement("div");
+        title.className = "title";
+        title.innerHTML = "Hello admin,  " + this.activePlayer.playerName;
+
+
         let nDiv2 = document.createElement("div");
         nDiv2.id = "words";
-        nDiv2.innerHTML = this.dictionary.displayDictionary();
+        nDiv2.innerHTML = "Existing words are: <br><b> " + this.dictionary.displayDictionary() + "<br></b> feel free to add some new words";
 
         let nInput = document.createElement("input");
         nInput.id = "keywordInput";
+        nInput.className = "inputName";
 
 
 
@@ -138,11 +149,12 @@ class Hangman {
 
 
                 hangman.dictionary.insertWord(nInput.value);
-                document.getElementById("words").innerHTML = hangman.dictionary.displayDictionary();
+                document.getElementById("words").innerHTML =  "Existing words are:<br><b>  " +  hangman.dictionary.displayDictionary() + "<br></b> feel free to add some new words";
             }
         });
 
         fragment.appendChild(nDiv);
+        fragment.appendChild(title);
         fragment.appendChild(nDiv2);
         fragment.appendChild(nInput);
 
@@ -158,22 +170,38 @@ class Hangman {
      document.getElementById('container').removeChild(document.getElementById('startWindow'));
 
 
-     let fragment = document.createDocumentFragment();
+
+     let el = document.createElement("div");
+     el.id = "gamePanel";
+     el.class = "gameWindow";
+
+      let title = document.createElement("div");
+        title.className = "title";
+        title.innerHTML = "Player:" + this.activePlayer.playerName + " is guessing";
+        el.appendChild(title);
+
+        let el2 = document.createElement("div");
+     el2.id = "inputPane";
+     el2.class = "inputPane";
+
+
+
 
      //create input field
      let inputField = document.createElement("input");
      inputField.id = "inputField";
+     inputField.class = "inputText";
      inputField.maxLength ="1";
      inputField.size="1";
-     fragment.appendChild(inputField);
+     el2.appendChild(inputField);
 
      //create button
      let button = document.createElement("button");
      button.id = "button";
      button.innerHTML = "Try letter";
-     fragment.appendChild(button);
+     el2.appendChild(button);
 
-
+     el.appendChild(el2);
     
 
     //create result div
@@ -192,11 +220,11 @@ class Hangman {
               counter++;  
      }
 
-    fragment.appendChild(result);
+        el.appendChild(result);
 
     let messageBox = document.createElement("div");
     messageBox.id = "messageBox";
-    fragment.appendChild(messageBox);
+    el.appendChild(messageBox);
 
     
 
@@ -213,7 +241,7 @@ class Hangman {
 
 
     //display game window
-    document.getElementById('container').appendChild(fragment);
+    document.getElementById('container').appendChild(el);
 
     }	
 	
