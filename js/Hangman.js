@@ -115,7 +115,9 @@ class Hangman {
     openAdminPanel() {
 
 
-        let fragment = document.createDocumentFragment();
+
+       document.getElementById("container").removeChild(document.getElementById("startWindow"));
+       let fragment = document.createDocumentFragment();
 
         //create input field
         let nDiv = document.createElement("div");
@@ -136,6 +138,7 @@ class Hangman {
 
 
                 hangman.dictionary.insertWord(nInput.value);
+                document.getElementById("words").innerHTML = hangman.dictionary.displayDictionary();
             }
         });
 
