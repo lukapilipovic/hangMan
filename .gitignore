@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+./idea.gitignore
+.idea/filesApp.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+=======
+/icons
+/iconsDesign
+.idea
+.DS_Store
+>>>>>>> 4da9e4cc4e8c0fda81595c9337b5dee124d701e8
