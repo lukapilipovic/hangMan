@@ -1,10 +1,10 @@
 class Player {
 
-    constructor(playerName = "", isAdmin = false,score,pWords){
+    constructor(playerName = "", isAdmin = false,score){
         this.playerName = playerName;
         this.isAdmin = isAdmin;
         this.score = score ? score : 0;
-        this.pWords = pWords ? pWords : [];
+        this.pWords = new Map();
 
     }
 

@@ -130,7 +130,20 @@ class Hangman {
             inputPlayer.setAdmin();
         }
         this.activePlayer = curPlayer;
-        //console.log("Score: " + this.activePlayer.score);
+
+   /*     let m = this.activePlayer.pWords;
+        let [a,b] = JSON.parse(m);
+        let nmap = new Map();
+        nmap.set(a,b);
+        this.activePlayer.pWords = nmap;
+
+        this.activePlayer.pWords.set("test",211);
+        // let [arr] = m.split(",");
+        //
+        //
+         console.log(nmap);
+*/
+
 
         //show words for admin
         if (this.activePlayer.isAdmin) {
@@ -374,14 +387,49 @@ class Hangman {
             //check if player exists
             if (playersJSON["playerList"][p].playerName === this.activePlayer.playerName) {
                 playersJSON["playerList"][p].score = this.activePlayer.score;
-                playersJSON["playerList"][p].pWords.push(this.guess);
+                console.log("pogodjene reci za igraca:");
+
+                let m;
+
+                if (playersJSON["playerList"][p].pWords.length > 2) {
+
+                    m = new Map(JSON.parse(playersJSON["playerList"][p].pWords));
+
+                }
+                else {
+                    m = new Map();
+                }
+
+                //let [test] = JSON.parse(playersJSON["playerList"][p].pWords);
+
+
+
+
+                //test.set(this.guess, this.duration);
+
+
+
+                m.set(this.guess,this.duration);
+
+
+
+                playersJSON["playerList"][p].pWords = JSON.stringify([...m]);
+                console.log(playersJSON["playerList"][p].pWords);
+
+//
+                console.log(JSON.stringify(playersJSON));
+
+                localStorage.playerList = JSON.stringify(playersJSON);
+
 
                 break;
             }
         }
 
 
-        localStorage.playerList = JSON.stringify(playersJSON);
+
+
+
         this.displayScores();
 
     }
@@ -408,11 +456,11 @@ class Hangman {
 
         let playersJSON = JSON.parse(localStorage.playerList);
 
-        console.log(playersJSON);
+        //console.log(playersJSON);
 
         let html = "";
         for (let p in Object.keys(playersJSON["playerList"])) {
-            html += playersJSON["playerList"][p].playerName + " " + playersJSON["playerList"][p].score + "<br>";
+            html += playersJSON["playerList"][p].playerName + " " + playersJSON["playerList"][p].score + " " + playersJSON["playerList"][p].pWords + "<br>";
         }
 
         html += "<br><br>";
