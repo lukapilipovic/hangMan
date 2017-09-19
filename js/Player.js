@@ -1,9 +1,11 @@
 class Player {
 
-    constructor(playerName = "", isAdmin = false, score = 0){
+    constructor(playerName = "", isAdmin = false,score,pWords){
         this.playerName = playerName;
         this.isAdmin = isAdmin;
-        this.score = score;
+        this.score = score ? score : 0;
+        this.pWords = pWords ? pWords : [];
+
     }
 
 
@@ -13,18 +15,6 @@ class Player {
         }
     }
 
-    loadPlayerData(){
-
-        //if exists
-
-
-
-        //if new player
-
-
-
-
-    }
 
     setAdmin(){
 
@@ -45,6 +35,8 @@ class Player {
         this.score +=10;
 
     }
+
+
 
 
 
