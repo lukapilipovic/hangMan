@@ -1,7 +1,7 @@
 class Dictionary{
 
     constructor (){
-        this.wordsArray = localStorage.dictionary ? JSON.parse(localStorage.dictionary) : ["taqoo", "internet"];
+        this.wordsArray = localStorage.dictionary ? JSON.parse(localStorage.dictionary) : ["tegetlab","macbook"];
     }
 
     insertWord(newWord){
@@ -10,7 +10,9 @@ class Dictionary{
     }
 
 
-
+    displayDictionary(){
+        return this.wordsArray.join();
+    }
 
 
 
